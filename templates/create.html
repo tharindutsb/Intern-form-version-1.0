@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Create Trainee</title>
+</head>
+<body>
+    <h1>Create Trainee</h1>
+    <hr>
+    <form action="/add" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="mobile">Mobile:</label>
+        <input type="text" id="mobile" name="mobile" required><br>
+
+        <label for="nic">NIC:</label>
+        <input type="text" id="nic" name="nic" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="address">Home Address/City:</label>
+        <input type="text" id="address" name="address" required><br>
+
+        <label for="start_date">Training Start Date:</label>
+        <input type="date" id="start_date" name="start_date" required><br>
+
+        <label for="end_date">Training End Date:</label>
+        <input type="date" id="end_date" name="end_date" required><br>
+
+        <label for="institute">Institute:</label>
+        <input type="text" id="institute" name="institute" required><br>
+
+        <label for="languages">Languages Known:</label>
+        <input type="text" id="languages" name="languages" required><br>
+
+        <label for="specialization">Field of Specialization:</label>
+        <select name="specialization" id="specialization" required>
+            <option value="" disabled selected>Select Specialization</option>
+            <option value="UI/UX">UI/UX</option>
+            <option value="Full Stack">Full Stack</option>
+            <option value="QA">QA</option>
+            <option value="Cloud">Cloud</option>
+        </select><br>
+
+        <label for="supervisor">Supervisor:</label>
+        <select name="supervisor" id="supervisor" required>
+            <option value="" disabled selected>Select Supervisor</option>
+            <option value="Giridaran Sir">Giridaran Sir</option>
+            <option value="Mohan Sir">Mohan Sir</option>
+            <option value="Janaka Sir">Janaka Sir</option>
+        </select><br>
+
+        <label for="assigned_work">Assigned Work:</label>
+        <textarea name="assigned_work" id="assigned_work" rows="4" cols="50" required placeholder="Enter details about the assigned work..."></textarea><br>
+
+        <label for="target_date">Target Date:</label>
+        <input type="date" id="target_date" name="target_date" required><br>
+
+        <button type="submit">Create</button>
+    </form>
+
+    <footer>
+        <a href="/table">Back to List</a>
+        <p>© 2024 - Digital Platform, Developed By T.S.Balasooriya</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>All Trainees</title>
+</head>
+<body>
+    <div class="container">
+        <h1>All Trainees</h1>
+        <hr>
+        <div class="pagination-container">  
+            <div class="filter-container">
+            <form class="left_page_filter" method="GET" action="{{ url_for('table') }}">
+                <label for="per_page">Show:</label>
+                <select name="per_page" id="per_page" onchange="this.form.submit()">
+                    <option value="5" {% if per_page == 5 %}selected{% endif %}>5</option>
+                    <option value="10" {% if per_page == 10 %}selected{% endif %}>10</option>
+                    <option value="15" {% if per_page == 15 %}selected{% endif %}>15</option>
+                    <option value="20" {% if per_page == 20 %}selected{% endif %}>20</option>
+                </select>
+            </form>
+            <input class="center__page_filter" type="text" id="filterInput" placeholder="Filter by name...">
+        </div>
+    </div>
+      
+        
+
+    
+    
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>Trainee_ID</th>
+                    <th>Name</th>
+                    <th>Mobile/ Email/ City</th>
+                    <th>NIC</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Institute</th>
+                    <th>Languages</th>
+                    <th>Specialization</th>
+                    <th>Supervisor</th>
+                    <th>Assigned Work</th>
+                    <th>Target Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trainee in trainees.items %}
+                <tr>
+                    <td>{{ trainee.id }}</td>
+                    <td>{{ trainee.name }}</td>
+                    <td>{{ trainee.mobile }}<br>{{ trainee.email }}<br>{{ trainee.address }}</td>
+                    <td>{{ trainee.nic }}</td>
+                    <td>{{ trainee.start_date }}</td>
+                    <td>{{ trainee.end_date }}</td>
+                    <td>{{ trainee.institute }}</td>
+                    <td>{{ trainee.languages }}</td>
+                    <td>{{ trainee.specialization }}</td>
+                    <td>{{ trainee.supervisor }}</td>
+                    <td>{{ trainee.assigned_work }}</td>
+                    <td>{{ trainee.target_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="pagination-container">     
+            <div class="pagination-links">
+                <span style="margin-right: 20px;">Showing {{ trainees.start }} to {{ trainees.end }} of {{ trainees.total }} entries</span>
+                {% if trainees.has_prev %}
+                    <a href="{{ url_for('table', page=trainees.prev_num, per_page=per_page) }}">Previous</a>
+                {% endif %}
+                <span style="margin: 0 10px;">Page {{ trainees.page }} of {{ trainees.pages }}</span>
+                {% if trainees.has_next %}
+                    <a href="{{ url_for('table', page=trainees.next_num, per_page=per_page) }}">Next</a>
+                {% endif %}
+            </div>
+        </div> 
+   
+        <style>
+            /* General styles for the page */
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+            }
+    
+            /* Flex container for pagination and filter */
+            .pagination-container {
+                display: flex; /* Use Flexbox for alignment */
+                justify-content: space-between; /* Space between left and right items */
+                align-items: center; /* Center items vertically */
+                margin: 20px 0; /* Add some margin for spacing */
+            }
+    
+            /* Styles for the filter dropdown and input */
+            .filter-container {
+                display: flex; /* Use Flexbox for the inner container */
+                align-items: center; /* Center items vertically */
+            }
+    
+            /* Styles for the form */
+            .left_page_filter {
+                margin-right: 10px; /* Add some space between the label and dropdown */
+            }
+    
+            /* Styles for the input field */
+            .center__page_filter {
+                padding: 5px; /* Add some padding for better appearance */
+                margin-left: 10px; /* Space between dropdown and input */
+            }
+    
+            /* Styles for pagination links */
+            .pagination-links {
+                display: flex; /* Use Flexbox for pagination links */
+                align-items: center; /* Center items vertically */
+            }
+    
+            a {
+                margin: 0 5px; /* Add some margin between links */
+                text-decoration: none; /* Remove underline from links */
+                color: blue; /* Link color */
+            }
+    
+            a:hover {
+                text-decoration: underline; /* Underline on hover */
+            }
+    
+            /* Table styles */
+            table {
+                width: 100%;
+                border-collapse: collapse; /* Ensures borders are collapsed */
+                margin-top: 20px; /* Space above the table */
+            }
+    
+            th, td {
+                border: 1px solid #ddd; /* Adds border to cells */
+                padding: 8px; /* Adds padding inside cells */
+                text-align: left; /* Default alignment */
+            }
+    
+            th {
+                background-color: #f2f2f2; /* Light gray background for header */
+            }
+        </style>
+        <script>
+            document.getElementById('filterInput').addEventListener('keyup', function() {
+                var input = this.value.toLowerCase();
+                var rows = document.querySelectorAll('#dataTable tbody tr');
+            
+                rows.forEach(function(row) {
+                    var cells = row.getElementsByTagName('td');
+                    var match = false;
+            
+                    for (var i = 0; i < cells.length; i++) {
+                        if (cells[i].textContent.toLowerCase().indexOf(input) > -1) {
+                            match = true;
+                            break;
+                        }
+                    }
+            
+                    row.style.display = match ? '' : 'none';
+                });
+            });
+            </script>
+        <br>
+        <a href="/export"><button id="button_export">Export to Excel</button></a><br>
+        
+    
+    </div>
+    <footer>
+        <a href="/">Create a Intern</a>
+        <p>© 2024 - Digital Platform, Developed By T.S.Balasooriya</p>
+    </footer>
+</body>
+</html>
